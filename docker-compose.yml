@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  api:
+    build: .
+    container_name: api
+    restart: unless-stopped
+
+  front:
+    build: react
+    container_name: front
+    command: npm run start
+    restart: unless-stopped
+
+  postgress:
+    image: postgres:16
+    container_name: postgress
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: my_database
