@@ -15,25 +15,38 @@ enum Role {
   ADMIN
 }
 
+enum Status {
+  PENDING // pedido pendente
+  DELIVERED // pedido entregue
+  ONROUTE // pedido em rota de entrega
+  OCCURRENCE // ocorreu um erro com o pedido
+  RETURNED // pedido devolvido
+  CANCELED // pedido cancelado
+}
+
 model User {
   id           String   @id @default(uuid())
   email        String   @unique
   name         String
   role         Role     @default(USER)
-  address      Address?
+  address      String
   passwordHash String
-  createdDate  DateTime
+  createdAt    DateTime
+  updatedAt    DateTime
+  Order        Order[]
+
+  @@unique([id, name, address])
 }
 
-model Address {
-  id           String  @id @default(uuid())
-  street       String
-  number       String?
-  neighborhood String
-  city         String
-  state        String
-  country      String
-  zipCode      String
-  user         User    @relation(fields: [userId], references: [id])
-  userId       String  @unique
+model Order {
+  id                    String   @id @default(uuid())
+  createdAt             DateTime
+  updatedAt             DateTime
+  estimatedDeliveryDate DateTime
+  user                  User     @relation(fields: [userId, userName, deliveryAddress], references: [id, name, address])
+  userId                String
+  userName              String
+  deliveryAddress       String
+  trackingCode          String
+  status                Status   @default(PENDING)
 }
