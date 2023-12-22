@@ -31,8 +31,8 @@ model User {
   role         Role     @default(USER)
   address      String
   passwordHash String
-  createdAt    DateTime
-  updatedAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
   Order        Order[]
 
   @@unique([id, name, address])
@@ -40,9 +40,8 @@ model User {
 
 model Order {
   id                    String   @id @default(uuid())
-  createdAt             DateTime
-  updatedAt             DateTime
-  estimatedDeliveryDate DateTime
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @default(now())
   user                  User     @relation(fields: [userId, userName, deliveryAddress], references: [id, name, address])
   userId                String
   userName              String
