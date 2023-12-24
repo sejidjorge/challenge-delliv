@@ -2,16 +2,14 @@ version: '3.8'
 
 services:
   api:
-    image: rovanilla/nestjs-app
-    container_name: api
+    image: jorgedeveloper01/api-nest-server
     ports:
       - 3001:3000
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@database:5432/mydb
+      - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/mydb
 
   front:
-    image: sunny0183/nextjs-docker
-    container_name: front
+    image: jorgedeveloper01/front-next-app
     ports:
       - 3000:3000
 
