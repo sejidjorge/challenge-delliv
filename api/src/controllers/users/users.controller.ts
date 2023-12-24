@@ -5,9 +5,9 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateUserDto } from '@/dto/createUser.dto';
-import { UsersService } from '@/services/users/users.service';
-import { validateRegister } from '@/utils/validateRegister';
+import { CreateUserDto } from '../../dto/createUser.dto';
+import { UsersService } from '../../services/users/users.service';
+import { validateRegister } from '../../utils/validateRegister';
 
 @Controller('users')
 export class UsersController {
