@@ -23,7 +23,7 @@ export class UsersController {
           message: 'User created successfully',
         };
       } catch (error) {
-        if (error.meta.target.filter((item) => item === 'email').length !== 0) {
+        if (error?.meta?.target?.filter((item) => item === 'email').length !== 0) {
           throw new HttpException(
             {
               message: 'User email already exists',
