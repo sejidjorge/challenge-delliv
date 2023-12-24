@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../../dto/createUser.dto';
 
 @Injectable()
-export class UsersService {
+export class UsersRegisterService {
   private prisma = new PrismaClient();
 
   async createUser(createUserDto: CreateUserDto): Promise<void> {

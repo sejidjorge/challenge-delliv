@@ -1,29 +1,31 @@
 import {
   Body,
   Controller,
-  Post,
   HttpException,
   HttpStatus,
+  Post,
 } from '@nestjs/common';
 import { CreateUserDto } from '../../dto/createUser.dto';
-import { UsersService } from '../../services/users/users.service';
+import { UsersRegisterService } from '../../services/users/register.service';
 import { validateRegister } from '../../utils/validateRegister';
 
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+@Controller('users/register')
+export class UsersRegisterController {
+  constructor(private readonly UsersRegisterService: UsersRegisterService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     try {
       await validateRegister(createUserDto);
       try {
-        await this.usersService.createUser(createUserDto);
+        await this.UsersRegisterService.createUser(createUserDto);
         return {
           message: 'User created successfully',
         };
       } catch (error) {
-        if (error?.meta?.target?.filter((item) => item === 'email').length !== 0) {
+        if (
+          error?.meta?.target?.filter((item) => item === 'email').length !== 0
+        ) {
           throw new HttpException(
             {
               message: 'User email already exists',

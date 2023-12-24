@@ -1,27 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException, HttpStatus, INestApplication } from '@nestjs/common';
-import { UsersController } from '../../controllers/users/users.controller';
-import { UsersService } from '../../services/users/users.service';
+import { UsersRegisterController } from '../../controllers/users/register.controller';
+import { UsersRegisterService } from '../../services/users/register.service';
 import { PrismaClient } from '@prisma/client';
-import { validateRegister } from 'src/utils/validateRegister';
 
-describe('UsersController', () => {
+describe('UsersRegisterController', () => {
   let app: INestApplication;
-  let controller: UsersController;
-  let service: UsersService;
+  let controller: UsersRegisterController;
+  let service: UsersRegisterService;
   let prismaService: PrismaClient;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
-      providers: [UsersService, PrismaClient],
+      controllers: [UsersRegisterController],
+      providers: [UsersRegisterService, PrismaClient],
     }).compile();
 
     app = module.createNestApplication();
     await app.init();
 
-    controller = app.get<UsersController>(UsersController);
-    service = app.get<UsersService>(UsersService);
+    controller = app.get<UsersRegisterController>(UsersRegisterController);
+    service = app.get<UsersRegisterService>(UsersRegisterService);
     prismaService = app.get<PrismaClient>(PrismaClient);
   });
 
@@ -80,6 +79,5 @@ describe('UsersController', () => {
         ),
       );
     });
-
   });
 });
