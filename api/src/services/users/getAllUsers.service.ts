@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import prisma from '../../utils/prisma';
 import { returnDataDto } from '../../dto/user.dto';
+import prisma from '../../utils/prisma';
 
 @Injectable()
-export class GetAllProfilesService {
+export default class GetAllProfilesService {
   constructor(private readonly jwtService: JwtService) {}
 
   async getAllProfiles(request: Request): Promise<returnDataDto[]> {

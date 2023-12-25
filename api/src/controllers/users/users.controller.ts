@@ -2,13 +2,14 @@ import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateUserDto, LoginDto } from '../../dto/user.dto';
 import { AuthService } from '../../services/auth/auth.service';
-import { GetProfileService } from '../../services/users/getProfile.service';
-import { UsersLoginService } from '../../services/users/login.service';
-import { UsersRegiserService } from '../../services/users/register.service';
-import { UpdateProfileService } from '../../services/users/updateProfile.service';
-import { DeleteUserService } from '../../services/users/deleteUser.service';
-import { GetAllProfilesService } from '../../services/users/getAllUsers.service';
-import { count } from 'console';
+import {
+  DeleteUserService,
+  GetAllProfilesService,
+  GetProfileService,
+  UpdateProfileService,
+  UsersLoginService,
+  UsersRegiserService,
+} from '../../services/users/index.service';
 
 @Controller('users')
 export class UsersController {

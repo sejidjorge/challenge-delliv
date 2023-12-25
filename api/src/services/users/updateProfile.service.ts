@@ -5,7 +5,7 @@ import { returnDataDto } from 'src/dto/user.dto';
 import prisma from 'src/utils/prisma';
 
 @Injectable()
-export class UpdateProfileService {
+export default class UpdateProfileService {
   constructor(private readonly jwtService: JwtService) {}
 
   async updateUser(request: Request): Promise<returnDataDto> {

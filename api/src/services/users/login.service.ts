@@ -6,7 +6,7 @@ import prisma from '../../utils/prisma';
 const errors = ['User not found', 'Invalid password'];
 
 @Injectable()
-export class UsersLoginService {
+export default class UsersLoginService {
   async userLogin(loginDto: LoginDto): Promise<{ user: returnDataDto }> {
     try {
       const required = ['email', 'password'];

@@ -4,7 +4,7 @@ import { Request } from 'express';
 import prisma from '../../utils/prisma';
 
 @Injectable()
-export class DeleteUserService {
+export default class DeleteUserService {
   constructor(private readonly jwtService: JwtService) {}
 
   async execute(request: Request): Promise<void> {

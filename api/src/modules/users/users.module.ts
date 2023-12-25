@@ -7,12 +7,14 @@ import {
 import { JwtModule } from '@nestjs/jwt';
 import { UsersController } from '../../controllers/users/users.controller';
 import { AuthMiddleware } from '../../middleware/auth.middleware';
-import { DeleteUserService } from '../../services/users/deleteUser.service';
-import { GetAllProfilesService } from '../../services/users/getAllUsers.service';
-import { GetProfileService } from '../../services/users/getProfile.service';
-import { UsersLoginService } from '../../services/users/login.service';
-import { UsersRegiserService } from '../../services/users/register.service';
-import { UpdateProfileService } from '../../services/users/updateProfile.service';
+import {
+  DeleteUserService,
+  GetAllProfilesService,
+  GetProfileService,
+  UpdateProfileService,
+  UsersLoginService,
+  UsersRegiserService,
+} from '../../services/users/index.service';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({

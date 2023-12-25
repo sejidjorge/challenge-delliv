@@ -5,7 +5,7 @@ import prisma from '../../utils/prisma';
 import { validateRegister } from '../../utils/validateRegister';
 
 @Injectable()
-export class UsersRegiserService {
+export default class UsersRegiserService {
   async createUser(createUserDto: CreateUserDto): Promise<void> {
     try {
       await validateRegister(createUserDto);
