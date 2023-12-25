@@ -1,41 +1,31 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { validateRegister } from '../../utils/validateRegister';
 import { CreateUserDto } from '../../dto/createUser.dto';
+import prisma from '../../utils/prisma';
+import { validateRegister } from '../../utils/validateRegister';
 
 @Injectable()
 export class UsersRegiserService {
-  private prisma = new PrismaClient();
-
   async createUser(createUserDto: CreateUserDto): Promise<void> {
     try {
       await validateRegister(createUserDto);
       try {
-        const { name, email, address, password } = createUserDto;
+        const { name, email, address, password, role } = createUserDto;
         const hashedPassword = await bcrypt.hash(password, 10);
-        await this.prisma.user
-          .create({
-            data: {
-              name,
-              email,
-              address,
-              passwordHash: hashedPassword,
-            },
-            select: {
-              id: true,
-              email: true,
-              name: true,
-            },
-          })
-          .then((user) => console.log(user));
-
-        throw new HttpException(
-          {
-            message: 'User created successfully',
+        await prisma.user.create({
+          data: {
+            name,
+            email,
+            address,
+            role,
+            passwordHash: hashedPassword,
           },
-          HttpStatus.CREATED,
-        );
+          select: {
+            id: true,
+            email: true,
+            name: true,
+          },
+        });
       } catch (error) {
         if (
           error?.meta?.target?.filter((item) => item === 'email').length !== 0

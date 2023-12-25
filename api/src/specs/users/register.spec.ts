@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
 import { UsersRegiserService } from '../../services/users/register.service';
+import { prismaMock } from '../../singleton';
 
 describe('UsersService', () => {
   let service: UsersRegiserService;
-  let prismaMock: PrismaClient;
+  let prisma: typeof prismaMock;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,7 +17,7 @@ describe('UsersService', () => {
     }).compile();
 
     service = module.get<UsersRegiserService>(UsersRegiserService);
-    prismaMock = module.get<PrismaClient>(PrismaClient);
+    prisma = module.get<PrismaClient>(PrismaClient);
   });
 
   it('should create a user successfully', async () => {
@@ -26,6 +27,27 @@ describe('UsersService', () => {
       address: '123 Main St',
       password: 'password',
     };
+
+    const createUserResult: {
+      id: string;
+      name: string;
+      email: string;
+      address: string;
+      role: Role;
+      passwordHash: string;
+      createdAt: Date;
+      updatedAt: Date;
+    } = {
+      id: 'b08ffb4d-314a-4db4-97c6-69ab0f941958',
+      name: 'John Doe',
+      email: 'test@example.com',
+      address: '123 Main St',
+      role: Role.USER,
+      passwordHash: 'string',
+      createdAt: new Date('2023-12-24 15:32:57.059'),
+      updatedAt: new Date('2023-12-24 15:32:57.059'),
+    };
+    prisma.user.create.mockResolvedValue(createUserResult);
 
     await expect(service.createUser(createUserDto)).rejects.toThrow(
       new HttpException(
