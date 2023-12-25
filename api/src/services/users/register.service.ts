@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from '../../dto/createUser.dto';
+import { CreateUserDto } from '../../dto/user.dto';
 import prisma from '../../utils/prisma';
 import { validateRegister } from '../../utils/validateRegister';
 
@@ -12,7 +12,7 @@ export class UsersRegiserService {
       try {
         const { name, email, address, password, role } = createUserDto;
         const hashedPassword = await bcrypt.hash(password, 10);
-        await prisma.user.create({
+        await prisma.users.create({
           data: {
             name,
             email,

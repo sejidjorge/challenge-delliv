@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../dto/createUser.dto';
+import { CreateUserDto } from '../dto/user.dto';
 
 export async function validateRegister(createUserDto: CreateUserDto) {
   const requiredFields = ['address', 'name', 'email', 'password'];

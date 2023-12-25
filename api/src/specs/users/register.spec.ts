@@ -47,7 +47,7 @@ describe('UsersService', () => {
       createdAt: new Date('2023-12-24 15:32:57.059'),
       updatedAt: new Date('2023-12-24 15:32:57.059'),
     };
-    prisma.user.create.mockResolvedValue(createUserResult);
+    prisma.users.create.mockResolvedValue(createUserResult);
 
     await expect(service.createUser(createUserDto)).rejects.toThrow(
       new HttpException(

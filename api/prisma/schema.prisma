@@ -24,7 +24,7 @@ enum Status {
   CANCELED // pedido cancelado
 }
 
-model User {
+model Users {
   id           String   @id @default(uuid())
   email        String   @unique
   name         String
@@ -33,16 +33,16 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
-  Order        Order[]
+  Order        Orders[]
 
   @@unique([id, name, address])
 }
 
-model Order {
+model Orders {
   id                    String   @id @default(uuid())
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
-  user                  User     @relation(fields: [userId, userName, deliveryAddress], references: [id, name, address])
+  user                  Users     @relation(fields: [userId, userName, deliveryAddress], references: [id, name, address])
   userId                String
   userName              String
   deliveryAddress       String
