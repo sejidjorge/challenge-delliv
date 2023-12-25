@@ -1,10 +1,14 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { CreateUserDto, LoginDto } from '../../dto/user.dto';
-import { UsersRegiserService } from '../../services/users/register.service';
-import { UsersLoginService } from '../../services/users/login.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { AuthMiddleware } from '../../middleware/auth.middleware';
-import { request } from 'http';
+import { GetProfileService } from '../../services/users/getProfile.service';
+import { UsersLoginService } from '../../services/users/login.service';
+import { UsersRegiserService } from '../../services/users/register.service';
+import { UpdateProfileService } from '../../services/users/updateProfile.service';
+import { DeleteUserService } from '../../services/users/deleteUser.service';
+import { GetAllProfilesService } from '../../services/users/getAllUsers.service';
+import { count } from 'console';
 
 @Controller('users')
 export class UsersController {
@@ -12,6 +16,10 @@ export class UsersController {
     private readonly usersRegiserService: UsersRegiserService,
     private readonly usersLoginService: UsersLoginService,
     private readonly authService: AuthService,
+    private readonly getProfileService: GetProfileService,
+    private readonly updateProfileService: UpdateProfileService,
+    private readonly deleteProfileService: DeleteUserService,
+    private readonly getAllUsersService: GetAllProfilesService,
   ) {}
 
   @Post('register')
@@ -29,10 +37,27 @@ export class UsersController {
     return { data: { user, token } };
   }
 
-  @Get('profile')
-  async profile() {
-    return {
-      message: `Olá, você está autenticado!`,
-    };
+  @Get(':id')
+  async profile(@Req() request: Request) {
+    const data = await this.getProfileService.getProfile(request);
+    return data;
+  }
+
+  @Post(':id')
+  async editProfile(@Req() request: Request) {
+    const data = await this.updateProfileService.updateUser(request);
+    return data;
+  }
+
+  @Delete(':id')
+  async deleteProfile(@Req() request: Request) {
+    await this.deleteProfileService.execute(request);
+    return { message: 'User deleted successfully' };
+  }
+
+  @Get()
+  async listAllUsers(@Req() request: Request) {
+    const users = await this.getAllUsersService.getAllProfiles(request);
+    return { data: users };
   }
 }
