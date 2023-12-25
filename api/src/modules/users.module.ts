@@ -5,8 +5,8 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersController } from '../../controllers/users/users.controller';
-import { AuthMiddleware } from '../../middleware/auth.middleware';
+import { UsersController } from '../controllers/users/users.controller';
+import { AuthMiddleware } from '../middleware/auth.middleware';
 import {
   DeleteUserService,
   GetAllProfilesService,
@@ -14,8 +14,8 @@ import {
   UpdateProfileService,
   UsersLoginService,
   UsersRegiserService,
-} from '../../services/users/index.service';
-import { AuthModule } from '../auth/auth.module';
+} from '../services/users/index.service';
+import { AuthModule } from './auth.module';
 
 @Module({
   imports: [
