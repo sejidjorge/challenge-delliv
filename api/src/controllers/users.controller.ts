@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { CreateUserDto, LoginDto } from '../../dto/user.dto';
-import { AuthService } from '../../services/auth/auth.service';
+import { CreateUserDto, LoginDto } from '../dto/user.dto';
+import { AuthService } from '../services/auth/auth.service';
 import {
   DeleteUserService,
   GetAllProfilesService,
@@ -9,7 +9,7 @@ import {
   UpdateProfileService,
   UsersLoginService,
   UsersRegiserService,
-} from '../../services/users/index.service';
+} from '../services/users';
 
 @Controller('users')
 export class UsersController {
@@ -38,25 +38,25 @@ export class UsersController {
     return { data: { user, token } };
   }
 
-  @Get(':id')
+  @Get('profile/:id')
   async profile(@Req() request: Request) {
     const data = await this.getProfileService.getProfile(request);
     return data;
   }
 
-  @Post(':id')
+  @Put('profile/:id')
   async editProfile(@Req() request: Request) {
     const data = await this.updateProfileService.updateUser(request);
     return data;
   }
 
-  @Delete(':id')
+  @Delete('profile/:id')
   async deleteProfile(@Req() request: Request) {
     await this.deleteProfileService.execute(request);
     return { message: 'User deleted successfully' };
   }
 
-  @Get()
+  @Get('all')
   async listAllUsers(@Req() request: Request) {
     const users = await this.getAllUsersService.getAllProfiles(request);
     return { data: users };

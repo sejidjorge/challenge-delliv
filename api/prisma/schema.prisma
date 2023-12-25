@@ -35,17 +35,14 @@ model Users {
   updatedAt    DateTime @default(now())
   Order        Orders[]
 
-  @@unique([id, name, address])
+  @@unique([id])
 }
 
 model Orders {
   id                    String   @id @default(uuid())
   createdAt             DateTime @default(now())
   updatedAt             DateTime @default(now())
-  user                  Users     @relation(fields: [userId, userName, deliveryAddress], references: [id, name, address])
+  user                  Users     @relation(fields: [userId], references: [id])
   userId                String
-  userName              String
-  deliveryAddress       String
-  trackingCode          String
   status                Status   @default(PENDING)
 }

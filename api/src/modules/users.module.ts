@@ -5,7 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersController } from '../controllers/users/users.controller';
+import { UsersController } from '../controllers/users.controller';
 import { AuthMiddleware } from '../middleware/auth.middleware';
 import {
   DeleteUserService,
@@ -14,7 +14,7 @@ import {
   UpdateProfileService,
   UsersLoginService,
   UsersRegiserService,
-} from '../services/users/index.service';
+} from '../services/users';
 import { AuthModule } from './auth.module';
 
 @Module({
@@ -39,8 +39,10 @@ export class UsersModule implements NestModule {
       .exclude(
         { path: 'users/register', method: RequestMethod.POST },
         { path: 'users/login', method: RequestMethod.POST },
-        'users/(.*)',
       )
-      .forRoutes(UsersController);
+      .forRoutes('users/profile/(*)', {
+        path: 'users/all',
+        method: RequestMethod.GET,
+      });
   }
 }
