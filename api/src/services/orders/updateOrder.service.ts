@@ -20,9 +20,9 @@ export default class UpdateOrderService {
       throw new HttpException(
         {
           message: 'You cannot edit orders for other users',
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
 

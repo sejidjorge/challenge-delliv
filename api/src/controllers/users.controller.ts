@@ -6,6 +6,7 @@ import {
   DeleteUserService,
   GetAllProfilesService,
   GetProfileService,
+  UpdatePasswordService,
   UpdateProfileService,
   UsersLoginService,
   UsersRegiserService,
@@ -21,6 +22,7 @@ export class UsersController {
     private readonly updateProfileService: UpdateProfileService,
     private readonly deleteProfileService: DeleteUserService,
     private readonly getAllUsersService: GetAllProfilesService,
+    private readonly updatePasswordService: UpdatePasswordService,
   ) {}
 
   @Post('register')
@@ -47,6 +49,11 @@ export class UsersController {
   @Put('profile/:id')
   async editProfile(@Req() request: Request) {
     const data = await this.updateProfileService.updateUser(request);
+    return data;
+  }
+  @Put('profile/:id/password')
+  async editUserPassword(@Req() request: Request) {
+    const data = await this.updatePasswordService.updateUserPassword(request);
     return data;
   }
 

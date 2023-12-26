@@ -16,9 +16,9 @@ export default class DeleteUserService {
       throw new HttpException(
         {
           message: "You cannot delete another user's data",
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
 

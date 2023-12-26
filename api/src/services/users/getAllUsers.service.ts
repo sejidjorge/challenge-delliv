@@ -16,9 +16,9 @@ export default class GetAllProfilesService {
       throw new HttpException(
         {
           message: "You cannot access other users' data",
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
     try {

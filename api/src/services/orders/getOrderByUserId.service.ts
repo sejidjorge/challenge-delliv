@@ -16,9 +16,9 @@ export default class GetOrderByUserIdService {
       throw new HttpException(
         {
           message: 'You cannot view orders for other users',
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
 

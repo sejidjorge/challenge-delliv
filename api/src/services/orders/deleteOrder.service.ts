@@ -18,9 +18,9 @@ export default class DeleteOrderService {
       throw new HttpException(
         {
           message: 'You cannot delete orders for other users',
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
 

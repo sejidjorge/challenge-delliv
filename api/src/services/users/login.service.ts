@@ -69,7 +69,7 @@ export default class UsersLoginService {
             error.message === errors[0]
               ? HttpStatus.NOT_FOUND
               : error.message === errors[0]
-                ? HttpStatus.UNAUTHORIZED
+                ? HttpStatus.BAD_REQUEST
                 : HttpStatus.BAD_REQUEST,
         },
         HttpStatus.BAD_REQUEST,

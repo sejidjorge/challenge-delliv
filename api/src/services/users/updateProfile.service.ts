@@ -23,9 +23,9 @@ export default class UpdateProfileService {
       throw new HttpException(
         {
           message: "You cannot edit other users' data",
-          status: HttpStatus.UNAUTHORIZED,
+          status: HttpStatus.BAD_REQUEST,
         },
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.BAD_REQUEST,
       );
     }
     try {

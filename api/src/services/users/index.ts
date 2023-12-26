@@ -4,3 +4,4 @@ export { default as GetProfileService } from './getProfile.service';
 export { default as UsersLoginService } from './login.service';
 export { default as UsersRegiserService } from './register.service';
 export { default as UpdateProfileService } from './updateProfile.service';
+export { default as UpdatePasswordService } from './updatePassword.service';

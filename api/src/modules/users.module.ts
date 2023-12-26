@@ -11,6 +11,7 @@ import {
   DeleteUserService,
   GetAllProfilesService,
   GetProfileService,
+  UpdatePasswordService,
   UpdateProfileService,
   UsersLoginService,
   UsersRegiserService,
@@ -30,6 +31,7 @@ import { AuthModule } from './auth.module';
     UpdateProfileService,
     DeleteUserService,
     GetAllProfilesService,
+    UpdatePasswordService,
   ],
 })
 export class UsersModule implements NestModule {
