@@ -1,25 +1,25 @@
-import { createStyledBreakpointsTheme } from 'styled-breakpoints';
-import { DefaultTheme } from 'styled-components';
+import { createStyledBreakpointsTheme } from "styled-breakpoints";
+import { DefaultTheme } from "styled-components";
 
 export const breakpoints = createStyledBreakpointsTheme({
   breakpoints: {
-    sm: '600px',
-    md: '840px',
+    sm: "600px",
+    md: "840px",
   },
 });
 
-const newPalet = {
-  background: '#f6f5f0',
-  primary: '#f93800',
-  primaryText: '#202458',
-  secondary: '#ff7100',
-  secondaryText: '#16195d',
-  hover: '#cacaca',
-  border: '#1c3452',
-  info: '#5bc0de',
-  error: '#d9534f',
-  warning: '#f0ad4e',
-  success: '#5cb85c',
+export const newPalet = {
+  background: "#12171A",
+  primary: "#3F9FAE",
+  primaryText: "#FFFFFF",
+  secondary: "#2C373B",
+  secondaryText: "#A0AEC2",
+  hover: "#253035",
+  border: "#2C373B",
+  info: "#65D6E5",
+  error: "#EF5350",
+  warning: "#FFB74D",
+  success: "#66BB6A",
 };
 
 export const defaultTheme: DefaultTheme = newPalet;

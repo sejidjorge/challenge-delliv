@@ -2,20 +2,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface AuthReducerStateTypes {
   user: {
+    [x: string]: string;
     id: string;
     email: string;
     name: string;
     address: string;
     role: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
   };
   token: string;
 }
 
 const initialState = {
   user: null,
-  token: null,
+  token: '',
 } as unknown as AuthReducerStateTypes;
 
 export const AuthSlice = createSlice({
@@ -23,6 +24,8 @@ export const AuthSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<AuthReducerStateTypes>) => {
+      console.log("action -> ", action);
+
       state.user = action.payload.user;
       state.token = action.payload.token;
     },

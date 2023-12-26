@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         appearance: none;
         font-family: var(--exo), sans-serif;
-        transition: all 0.6s linear;
+        transition: all 0.2s linear;
         scrollbar-width: thin;
         scrollbar-color: #596472 #000000;
         appearance: none;

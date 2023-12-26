@@ -1,21 +1,27 @@
 import { useAppSelector } from "@/hooks/reduxHook";
-import { usePathname } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function AuthMiddleware({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = useAppSelector((state) => state.authUser);
+  const authData = useAppSelector((state) => state.authUser);
   const pathname = usePathname();
-  // const tokenDecoded = user !== undefined ? jwtDecode(user?.token) : "";
-  // const validToken = tokenDecoded.exp! > Math.floor(Date.now() / 1000);
+  const router = useRouter();
 
-  // if (!user.token || (pathname === "/" && validToken)) {
-  //   console.log("ir para login");
-  // } else {
-  //   console.log("ir para home");
-  // }
+  if (pathname !== "/login" && authData.user === null) {
+    router.push("/login");
+  }
+  if (pathname === "/login" && authData.user !== null) {
+    if (jwtDecode(authData.token).exp > Date.now() / 1000) {
+      router.push("/dashboard");
+    } else {
+      router.push("/login");
+    }
+  }
+
   return <>{children}</>;
 }
