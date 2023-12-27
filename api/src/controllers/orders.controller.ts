@@ -43,7 +43,7 @@ export class OrdersController {
     return order;
   }
 
-  @Delete(':id/:userId')
+  @Delete(':id')
   async deleteOrder(@Req() request: Request) {
     await this.deleteOrderService.deleteOrder(request);
     return {

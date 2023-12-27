@@ -78,18 +78,18 @@ const Typography = {
   Label: styled.p`
     font-family: var(--exo);
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0.1px;
     ${({ theme }) => theme.breakpoints.up("md")} {
-      font-size: 14pt;
+      font-size: 13pt;
       line-height: 20pt;
     }
     ${({ theme }) => theme.breakpoints.between("sm", "md")} {
-      font-size: 12pt;
+      font-size: 11pt;
       line-height: 16pt;
     }
     ${({ theme }) => theme.breakpoints.down("sm")} {
-      font-size: 11pt;
+      font-size: 10pt;
       line-height: 16pt;
     }
   `,

@@ -15,7 +15,8 @@ import {
 } from "@/components/atoms/containers";
 import Typography from "@/components/atoms/typography";
 import CardData from "@/components/molecules/cardData";
-import RefreshButton from "@/components/molecules/refreshButton";
+import IconButton from '@/components/molecules/IconBtn';
+import RefreshButton from "@/components/molecules/IconBtn";
 import Table from "@/components/molecules/table/table";
 import { usePrivateApi } from "@/hooks/apiPrivateHooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
@@ -31,15 +32,12 @@ export default function Dashboard() {
   const dispath = useAppDispatch();
   const router = useRouter();
   const { getAllOrders, getOrderUserById } = usePrivateApi();
-  console.log(orders);
 
   const ordersNumberByStatus = orders.reduce((acc, item) => {
     acc[item.status] = acc[item.status] || [];
     acc[item.status].push(item);
     return acc;
   }, {});
-
-  console.log(ordersNumberByStatus);
 
   if (token) {
     const decoded = jwtDecode(token);
@@ -56,18 +54,15 @@ export default function Dashboard() {
   async function getGeneralOrders() {
     try {
       const { data } = await getAllOrders();
-      const reorderData = data.map((item) => ({
+      const reOrder = data.map((item) => ({
         id: item.id,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
-        userId: item.userId,
         status: item.status,
         name: item.user.name,
         address: item.user.address,
-        email: item.user.email,
       }));
-
-      dispath(saveListOrders(reorderData));
+      dispath(saveListOrders(reOrder));
     } catch (error) {
       console.log(error);
     }
@@ -76,17 +71,16 @@ export default function Dashboard() {
   async function getUserOrders() {
     try {
       const { data } = await getOrderUserById(user.id);
-      const reorderData = data.map((item) => ({
+      const reOrder = data.map((item) => ({
         id: item.id,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
-        userId: item.userId,
         status: item.status,
         name: item.user.name,
         address: item.user.address,
-        email: item.user.email,
       }));
-      dispath(saveListOrders(reorderData));
+
+      dispath(saveListOrders(reOrder));
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +122,8 @@ export default function Dashboard() {
             <Button label="Usuarios" variant="text" click={() => {}} />
           </ContainerDashBoardActions>
           <ContainerDashBoardActionsIntern>
-            <RefreshButton
+            <IconButton
+              icon='refresh'
               variant="contained"
               click={() => {
                 if (user.role === "USER") {
@@ -143,19 +138,7 @@ export default function Dashboard() {
             {Object.entries(ordersNumberByStatus).map(([status, items]) => (
               <CardData key={status} title={status} count={items.length} />
             ))}
-            <Table
-              columns={[
-                "PEDIDO",
-                "CRIADO EM",
-                "ATUALIZADO EM",
-                "USUARIO",
-                "STATUS",
-                "NOME",
-                "ENDEREÇO",
-                "EMAIL",
-              ]}
-              data={orders}
-            />
+            <Table columns={['AÇÕES', 'ID DO PEDIDO', 'CRIADO EM', 'ATUALIZADO EM','STATUS', 'USUARIO', 'ENDEREÇO DE ENTREGA']} data={orders} />
           </ContainerDashBoardCardData>
         </ContainerDashBoardContent>
       </ContainerDashBoard>

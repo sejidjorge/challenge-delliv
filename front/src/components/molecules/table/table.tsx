@@ -1,6 +1,14 @@
 import Typography from "@/components/atoms/typography";
-import { TableHead, TableHeadTh, TableStyled, TableTd } from "./table.styles";
+import {
+  ContainerTablePagination,
+  TableHead,
+  TableHeadTh,
+  TableStyled,
+  TableTd,
+} from "./table.styles";
 import { formatDate } from "@/utils/formatDate";
+import { CardTable } from "@/components/atoms/cards";
+import { getLabelStatus } from "@/utils/labels";
 
 interface User {
   id: string;
@@ -18,11 +26,8 @@ interface Order {
   updatedAt: Date;
   userId: string;
   status: string;
-  user: {
-    name: string;
-    address: string;
-    email: string;
-  };
+  name: string;
+  address: string;
 }
 
 interface TableDataProps {
@@ -32,7 +37,7 @@ interface TableDataProps {
 
 export default function Table({ data, columns }: TableDataProps) {
   return (
-    <div>
+    <CardTable>
       <TableStyled>
         <TableHead>
           <tr>
@@ -46,11 +51,16 @@ export default function Table({ data, columns }: TableDataProps) {
         <tbody>
           {data.map((rowData, index) => (
             <tr key={index}>
+              <TableTd>
+                <Typography.Label></Typography.Label>
+              </TableTd>
               {Object.entries(rowData).map(([key, value]) => (
                 <TableTd key={key}>
                   <Typography.Label>
                     {key === "createdAt" || key === "updatedAt"
                       ? formatDate(new Date(value))
+                      : key === "status"
+                      ? getLabelStatus(value)
                       : value}
                   </Typography.Label>
                 </TableTd>
@@ -59,6 +69,9 @@ export default function Table({ data, columns }: TableDataProps) {
           ))}
         </tbody>
       </TableStyled>
-    </div>
+      <ContainerTablePagination>
+        <Typography.Label>total de registros {data.length}</Typography.Label>
+      </ContainerTablePagination>
+    </CardTable>
   );
 }

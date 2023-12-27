@@ -29,3 +29,12 @@ export const TableTd = styled.td`
   padding: 0.5em 1em;
   white-space: nowrap;
 `;
+
+export const ContainerTablePagination = styled.div`
+  width: 100%;
+  padding: 0.5em 1em;
+  background-color: ${({ theme }) => theme.background};
+  display: flex;
+  justify-content: end;
+  color: ${({ theme }) => theme.secondaryText};
+`;

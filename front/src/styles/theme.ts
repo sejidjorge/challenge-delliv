@@ -13,7 +13,7 @@ export const newPalet = {
   primary: "#0250b0",
   primaryText: "#f3f3f3",
   secondary: "#24292a",
-  secondaryText: "#9194c6",
+  secondaryText: "#a2a1a1",
   hover: "#253035",
   border: "#2C373B",
 };

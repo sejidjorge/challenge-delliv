@@ -67,9 +67,9 @@ export const usePrivateApi = () => ({
     );
     return response;
   },
-  deleteOrder: async (id: string, userId: string) => {
+  deleteOrder: async (id: string) => {
     const response = await AxiosPrivateService(getToken()).delete(
-      `/orders/${id}/${userId}`
+      `/orders/${id}/`
     );
     return response;
   },

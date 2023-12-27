@@ -45,3 +45,10 @@ export const CardDataBody = styled.div`
   border-radius: 0.3rem;
   border: 1px solid ${({ theme }) => theme.border};
 `;
+
+export const CardTable = styled.div`
+  border-radius: 0.3rem;
+  border: 1px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.primary};
+  padding-top: 0.2em;
+`;
