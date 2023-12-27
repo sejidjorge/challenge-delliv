@@ -19,7 +19,6 @@ enum Status {
   PENDING // pedido pendente
   DELIVERED // pedido entregue
   ONROUTE // pedido em rota de entrega
-  OCCURRENCE // ocorreu um erro com o pedido
   RETURNED // pedido devolvido
   CANCELED // pedido cancelado
 }

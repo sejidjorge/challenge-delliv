@@ -6,11 +6,9 @@ export interface OrderReducerStateTypes {
   updatedAt: Date;
   userId: string;
   status: string;
-  user: {
-    name: string;
-    address: string;
-    email: string;
-  };
+  name: string;
+  address: string;
+  email: string;
 }
 
 const singleOrder = {} as OrderReducerStateTypes;

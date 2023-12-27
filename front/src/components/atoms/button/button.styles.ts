@@ -31,7 +31,7 @@ export const BodyButton = styled.button<ButtonProps>`
       border: 1px solid transparent;
       cursor: not-allowed;
     }
-    }
+  }
 `;
 
 export const BodyButtonText = styled(BodyButton)<ButtonProps>`
@@ -59,4 +59,8 @@ export const BodyButtonOutlined = styled(BodyButtonText)<ButtonProps>`
 
 export const ButtonLabel = styled(Typography.Label)`
   text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

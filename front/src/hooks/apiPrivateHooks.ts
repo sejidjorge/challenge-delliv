@@ -1,9 +1,11 @@
 import { UpdateUserPasswordTypes, UpdateUserTypes } from "@/types/userTypes";
 import { AxiosPrivateService } from "@/utils/axios";
-import { useAppSelector } from "./reduxHook";
 
 function getToken(): string | null {
-  const token = useAppSelector((state) => state.authUser.token);
+  const localStorageData = localStorage.getItem("persist:root");
+  const parsedData = JSON.parse(localStorageData || "");
+  const authData = parsedData?.authUser;
+  const token = JSON.parse(authData)?.token;
   return token;
 }
 

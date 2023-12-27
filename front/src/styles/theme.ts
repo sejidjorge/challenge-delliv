@@ -11,9 +11,9 @@ export const breakpoints = createStyledBreakpointsTheme({
 export const newPalet = {
   background: "#12171A",
   primary: "#0250b0",
-  primaryText: "#EADCCC",
+  primaryText: "#f3f3f3",
   secondary: "#24292a",
-  secondaryText: "#BB91C6",
+  secondaryText: "#9194c6",
   hover: "#253035",
   border: "#2C373B",
 };

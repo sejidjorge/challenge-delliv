@@ -34,13 +34,14 @@ export const UserCardAvatar = styled.div`
 `;
 
 export const CardDataBody = styled.div`
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.primaryText};
+  background-color: ${({ theme }) => theme.hover};
   border-radius: 0.3rem;
   border: 1px solid ${({ theme }) => theme.border};
 `;

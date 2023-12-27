@@ -1,4 +1,3 @@
-import { useAppSelector } from "@/hooks/reduxHook";
 import axios, {
   AxiosError,
   AxiosInstance,

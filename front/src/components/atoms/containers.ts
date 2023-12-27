@@ -99,13 +99,29 @@ export const ContainerDashBoard = styled.div`
 `;
 
 export const ContainerDashBoardContent = styled.div`
-  /* background-color: ${({ theme }) => theme.secondary}; */
   padding: 0.5em 1.2em;
-  /* border: 1px solid ${({ theme }) => theme.border}; */
   border-radius: 0.3rem;
+`;
+
+export const ContainerDashBoardActions = styled.div`
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid ${({ theme }) => theme.border};
+`;
+
+export const ContainerDashBoardActionsIntern = styled(
+  ContainerDashBoardActions
+)`
+  display: flex;
+  justify-content: end;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  border-bottom: none;
 `;
 
 export const ContainerDashBoardCardData = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5em;
 `;

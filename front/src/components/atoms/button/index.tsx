@@ -9,7 +9,7 @@ import {
 } from "./button.styles";
 
 interface ButtonProps {
-  label: string;
+  label: string | JSX.Element;
   variant: "text" | "outlined" | "contained";
   click: MouseEventHandler<HTMLButtonElement>;
   size?: string;

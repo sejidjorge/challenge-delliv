@@ -5,7 +5,6 @@ import { store } from "@/store";
 import GlobalStyle from "@/styles/global";
 import { theme } from "@/styles/theme";
 import { Provider } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "styled-components";
 
@@ -14,21 +13,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <StyledComponentsRegistry>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Provider store={store}>
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
-          {children}
-        </Provider>
+        <Provider store={store}>{children}</Provider>
       </ThemeProvider>
     </StyledComponentsRegistry>
   );

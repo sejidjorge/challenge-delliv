@@ -1,11 +1,18 @@
 import { CardDataBody } from "@/components/atoms/cards";
 import Typography from "@/components/atoms/typography";
+import { getLabelStatus } from "@/utils/labels";
 
-export default function CardData() {
+export default function CardData({
+  title,
+  count,
+}: {
+  title: string;
+  count: number;
+}) {
   return (
     <CardDataBody>
-      <Typography.Body>Title</Typography.Body>
-      <Typography.Display>5</Typography.Display>
+      <Typography.Body>{getLabelStatus(title)}</Typography.Body>
+      <Typography.Display>{count}</Typography.Display>
     </CardDataBody>
   );
 }
