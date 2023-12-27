@@ -5,20 +5,22 @@ import Typography from "@/components/atoms/typography";
 import { AuthCard } from "@/components/molecules/cards";
 import {
   ContainerAuthPage,
-  ContainerError,
   ContainerForm,
 } from "@/components/molecules/containers";
 import { usePublicApi } from "@/hooks/apiPublicHooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
-import { login } from "@/store/reducers/authReducer";
+import { login, logout } from "@/store/reducers/authReducer";
 import { newPalet } from "@/styles/theme";
+import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import sha256 from "sha256";
 
 export default function Login() {
   const { loginConection, registerConection } = usePublicApi();
-  const data = useAppSelector((state) => state.authUser);
+  const authData = useAppSelector((state) => state.authUser);
   const dispath = useAppDispatch();
+  const router = useRouter();
   const [newRegister, setNewRegister] = useState(false);
   const [registerData, setRegisterData] = useState({
     name: "",
@@ -58,10 +60,18 @@ export default function Login() {
       const {
         data: { data },
       } = await loginConection(body);
-      console.log(data);
       dispath(login(data));
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  if (authData.token) {
+    const decoded = jwtDecode(authData.token);
+    if (decoded?.exp > Math.floor(Date.now() / 1000)) {
+      router.push("/dashboard");
+    } else {
+      dispath(logout());
     }
   }
 

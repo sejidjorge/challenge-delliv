@@ -24,8 +24,6 @@ export const AuthSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<AuthReducerStateTypes>) => {
-      console.log("action -> ", action);
-
       state.user = action.payload.user;
       state.token = action.payload.token;
     },

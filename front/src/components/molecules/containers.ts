@@ -31,7 +31,7 @@ export const ContainerAuthPage = styled.div`
   }
 `;
 
-export const ContainerError = styled.form`
+export const ContainerError = styled.div`
   color: ${({ theme }) => theme.error};
 `;
 
@@ -40,4 +40,16 @@ export const ContainerForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const ContainerDashPage = styled.div`
+  width: 100vw;
+  height: 100dvh;
+  background-color: ${({ theme }) => theme.background};
+  ${({ theme }) => theme.breakpoints.up("md")} {
+    flex-direction: row;
+  }
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    flex-direction: column;
+  }
 `;
