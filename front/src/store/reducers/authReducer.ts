@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface AuthReducerStateTypes {
   user: {
-    [x: string]: string;
     id: string;
     email: string;
     name: string;
@@ -12,11 +11,15 @@ export interface AuthReducerStateTypes {
     updatedAt: string;
   };
   token: string;
+  listUsers: {
+    users: AuthReducerStateTypes["user"][];
+  };
 }
 
 const initialState = {
   user: null,
-  token: '',
+  token: "",
+  listUsers: { users: [] },
 } as unknown as AuthReducerStateTypes;
 
 export const AuthSlice = createSlice({
@@ -28,11 +31,18 @@ export const AuthSlice = createSlice({
       state.token = action.payload.token;
     },
     logout: (state) => {
-      state = initialState;
+      state.user = null;
+      state.token = "";
+    },
+    saveAllUsers: (
+      state,
+      action: PayloadAction<AuthReducerStateTypes["listUsers"]>
+    ) => {
+      state.listUsers = action.payload;
     },
   },
 });
 
-export const { login, logout } = AuthSlice.actions;
+export const { login, logout, saveAllUsers } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

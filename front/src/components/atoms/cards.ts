@@ -21,3 +21,26 @@ export const AuthCard = styled.div<{
   background-color: ${({ background }) =>
     background ?? (({ theme }) => theme.background)};
 `;
+
+export const UserCardAvatar = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.background};
+`;
+
+export const CardDataBody = styled.div`
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.primary};
+  border-radius: 0.3rem;
+  border: 1px solid ${({ theme }) => theme.border};
+`;

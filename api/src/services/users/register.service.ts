@@ -11,6 +11,12 @@ export default class UsersRegiserService {
       await validateRegister(createUserDto);
       try {
         const { name, email, address, password, role } = createUserDto;
+        const required = ['email', 'name', 'address', 'password'];
+        for (const field of required) {
+          if (!createUserDto[field]) {
+            throw new Error(`${field} is required`);
+          }
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         await prisma.users.create({
           data: {

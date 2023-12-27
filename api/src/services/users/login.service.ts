@@ -65,12 +65,7 @@ export default class UsersLoginService {
       throw new HttpException(
         {
           message: error.message,
-          statusCode:
-            error.message === errors[0]
-              ? HttpStatus.NOT_FOUND
-              : error.message === errors[0]
-                ? HttpStatus.BAD_REQUEST
-                : HttpStatus.BAD_REQUEST,
+          statusCode: HttpStatus.BAD_REQUEST,
         },
         HttpStatus.BAD_REQUEST,
       );

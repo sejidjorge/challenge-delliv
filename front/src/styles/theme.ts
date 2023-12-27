@@ -10,16 +10,12 @@ export const breakpoints = createStyledBreakpointsTheme({
 
 export const newPalet = {
   background: "#12171A",
-  primary: "#3F9FAE",
-  primaryText: "#FFFFFF",
-  secondary: "#2C373B",
-  secondaryText: "#A0AEC2",
+  primary: "#0250b0",
+  primaryText: "#EADCCC",
+  secondary: "#24292a",
+  secondaryText: "#BB91C6",
   hover: "#253035",
   border: "#2C373B",
-  info: "#65D6E5",
-  error: "#EF5350",
-  warning: "#FFB74D",
-  success: "#66BB6A",
 };
 
 export const defaultTheme: DefaultTheme = newPalet;

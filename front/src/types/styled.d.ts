@@ -9,9 +9,5 @@ declare module 'styled-components' {
     secondaryText: string;
     hover: string;
     border: string;
-    info: string;
-    error: string;
-    warning: string;
-    success: string;
   }
 }
