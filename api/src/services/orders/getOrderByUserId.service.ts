@@ -12,7 +12,7 @@ export default class GetOrderByUserIdService {
     const token = request.headers['authorization'];
     const tokenDecoded = await this.jwtService.verify(token);
 
-    if (tokenDecoded.role !== 'ADMIN') {
+    if (userId !== tokenDecoded.id && tokenDecoded.role !== 'ADMIN') {
       throw new HttpException(
         {
           message: 'You cannot view orders for other users',

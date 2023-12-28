@@ -31,7 +31,7 @@ export const InputStyled = styled.input`
   }
   outline: none;
   color: ${({ theme }) => theme.primaryText};
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     border: 1.8px solid ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.primary};
     transition: 0.2s;
@@ -45,19 +45,16 @@ export const SelectStyled = styled.select`
   background-color: ${({ theme }) => theme.background};
   border-radius: 0.3em;
   ${({ theme }) => theme.breakpoints.up("md")} {
-    height: 20pt;
     font-size: 14pt;
-    padding: 14pt 0.5em;
+    padding: 6pt 0.5em;
   }
   ${({ theme }) => theme.breakpoints.between("sm", "md")} {
-    height: 16pt;
     font-size: 12pt;
-    padding: 12pt 0.5em;
+    padding: 5pt 0.5em;
   }
   ${({ theme }) => theme.breakpoints.down("sm")} {
-    height: 16pt;
     font-size: 11pt;
-    padding: 11pt 0.5em;
+    padding: 4.5pt 0.5em;
   }
   outline: none;
   color: ${({ theme }) => theme.primaryText};
@@ -67,7 +64,7 @@ export const SelectStyled = styled.select`
     border: 1.8px solid ${({ theme }) => theme.border};
     color: ${({ theme }) => theme.primaryText};
   }
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     border: 1.8px solid ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.primary};
     transition: 0.2s;
@@ -138,7 +135,7 @@ export const CheckboxStyled = styled.input.attrs({ type: "checkbox" })`
     transform: scale(1);
   }
   color: ${({ theme }) => theme.primaryText};
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     border: 2.8px solid ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.primary};
     transition: 0.2s;

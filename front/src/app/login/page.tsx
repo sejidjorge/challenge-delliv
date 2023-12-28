@@ -3,8 +3,7 @@ import Button from "@/components/atoms/button";
 import { AuthCard } from "@/components/atoms/cards";
 import {
   ContainerAuthPage,
-  ContainerError,
-  ContainerForm,
+  ContainerForm
 } from "@/components/atoms/containers";
 import Input from "@/components/atoms/inputs";
 import Notification from "@/components/atoms/notifications";
@@ -200,7 +199,7 @@ export default function Login() {
                   options={[
                     { label: "Admin", value: "ADMIN" },
                     {
-                      label: "User",
+                      label: "Usuario",
                       value: "USER",
                     },
                   ]}

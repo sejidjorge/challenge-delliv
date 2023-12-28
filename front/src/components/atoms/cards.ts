@@ -34,8 +34,8 @@ export const UserCardAvatar = styled.div`
 `;
 
 export const CardDataBody = styled.div`
-  width: 8rem;
-  height: 8rem;
+  width: 12rem;
+  height: 12rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,4 +51,7 @@ export const CardTable = styled.div`
   border: 1px solid ${({ theme }) => theme.border};
   background-color: ${({ theme }) => theme.primary};
   padding-top: 0.2em;
+  max-height: 30rem;
+  overflow-y: auto;
+  position: relative;
 `;

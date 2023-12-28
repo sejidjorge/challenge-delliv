@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
 import { logout } from "@/store/reducers/authReducer";
 import { jwtDecode } from "jwt-decode";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const authData = useAppSelector((state) => state.authUser);
@@ -13,7 +13,8 @@ export default function Home() {
   if (authData.token) {
     const decoded = jwtDecode(authData.token);
     if (decoded?.exp > Math.floor(Date.now() / 1000)) {
-      router.push("/dashboard");
+      router.replace("/dashboard");
+      console.log("sessão valida");
     } else {
       dispath(logout());
       router.push("/login");
@@ -21,7 +22,7 @@ export default function Home() {
   } else {
     router.push("/login");
   }
-  
+
   return (
     <div>
       <h1>Front is running!</h1>

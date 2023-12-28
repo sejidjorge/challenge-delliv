@@ -114,8 +114,9 @@ export const ContainerDashBoardActionsIntern = styled(
   ContainerDashBoardActions
 )`
   display: flex;
-  justify-content: end;
+  // justify-content: end;
   gap: 0.5em;
+  margin-top: 1em;
   margin-bottom: 1em;
   border-bottom: none;
 `;

@@ -5,7 +5,7 @@ export function getLabelStatus(status: string) {
     case "DELIVERED":
       return "Entregue";
     case "ONROUTE":
-      return "Em rota de entrega";
+      return "Rota de entrega";
     case "RETURNED":
       return "Devolvido";
     case "CANCELED":

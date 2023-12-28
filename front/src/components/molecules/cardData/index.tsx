@@ -1,3 +1,5 @@
+"use client";
+
 import { CardDataBody } from "@/components/atoms/cards";
 import Typography from "@/components/atoms/typography";
 import { getLabelStatus } from "@/utils/labels";

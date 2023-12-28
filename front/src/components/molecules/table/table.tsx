@@ -1,4 +1,11 @@
+import { CardTable } from "@/components/atoms/cards";
 import Typography from "@/components/atoms/typography";
+import { formatDate } from "@/utils/formatDate";
+import { getLabelStatus } from "@/utils/labels";
+import { useEffect, useState } from "react";
+import IconButton from "../IconBtn";
+import ModalDeleteOrder from "../modalDeleteOrder";
+import ModalEditOrder from "../modalEditOrder";
 import {
   ContainerTablePagination,
   TableHead,
@@ -6,9 +13,6 @@ import {
   TableStyled,
   TableTd,
 } from "./table.styles";
-import { formatDate } from "@/utils/formatDate";
-import { CardTable } from "@/components/atoms/cards";
-import { getLabelStatus } from "@/utils/labels";
 
 interface User {
   id: string;
@@ -32,10 +36,37 @@ interface Order {
 
 interface TableDataProps {
   columns: string[];
-  data: User[] | Order[];
+  data: any;
+  refresh: () => void;
 }
 
-export default function Table({ data, columns }: TableDataProps) {
+export default function Table({ data, columns, refresh }: TableDataProps) {
+  const [changeStatusOrder, setChangeStatusOrder] = useState(false);
+  const [modalDeleteOrder, setModalDeleteOrder] = useState(false);
+  const [order, setOrder] = useState<Order>();
+  const [orderDelete, setOrderDelete] = useState<Order>();
+
+  function handleEditStatus(data: Order) {
+    setOrder(data);
+    setChangeStatusOrder(true);
+  }
+
+  function handleDelete(data: Order) {
+    setOrderDelete(data);
+    setModalDeleteOrder(true);
+  }
+
+  useEffect(() => {
+    if (!changeStatusOrder && order) {
+      setOrder(undefined);
+      refresh();
+    }
+    if (!modalDeleteOrder && orderDelete) {
+      setOrderDelete(undefined);
+      refresh();
+    }
+  }, [changeStatusOrder, modalDeleteOrder]);
+
   return (
     <CardTable>
       <TableStyled>
@@ -52,7 +83,24 @@ export default function Table({ data, columns }: TableDataProps) {
           {data.map((rowData, index) => (
             <tr key={index}>
               <TableTd>
-                <Typography.Label></Typography.Label>
+                <IconButton
+                  variant="text"
+                  icon="edit"
+                  click={() => {
+                    if (rowData?.status) {
+                      handleEditStatus(rowData as Order);
+                    }
+                  }}
+                />
+                <IconButton
+                  variant="text"
+                  icon="delete"
+                  click={() => {
+                    if (rowData?.status) {
+                      handleDelete(rowData as Order);
+                    }
+                  }}
+                />
               </TableTd>
               {Object.entries(rowData).map(([key, value]) => (
                 <TableTd key={key}>
@@ -72,6 +120,20 @@ export default function Table({ data, columns }: TableDataProps) {
       <ContainerTablePagination>
         <Typography.Label>total de registros {data.length}</Typography.Label>
       </ContainerTablePagination>
+      {order && (
+        <ModalEditOrder
+          open={changeStatusOrder}
+          setOpen={setChangeStatusOrder}
+          order={order}
+        />
+      )}
+      {orderDelete && (
+        <ModalDeleteOrder
+          open={modalDeleteOrder}
+          setOpen={setModalDeleteOrder}
+          order={orderDelete}
+        />
+      )}
     </CardTable>
   );
 }

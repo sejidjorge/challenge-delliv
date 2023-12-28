@@ -38,7 +38,7 @@ export default function Input({
           onChange={changeValue}
         >
           <>
-            <option value="">select value</option>
+            <option value="" selected>selecione uma opção</option>
             {options.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}

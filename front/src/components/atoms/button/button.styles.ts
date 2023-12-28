@@ -6,7 +6,7 @@ interface ButtonProps {
 }
 
 export const BodyButton = styled.button<ButtonProps>`
-  padding: 0.5rem 1.2rem;
+  padding: 0.4rem 0.8rem;
   width: ${({ size }) => size ?? "auto"};
   max-width: 250pt;
   border: 1px solid transparent;
@@ -15,7 +15,7 @@ export const BodyButton = styled.button<ButtonProps>`
   border-radius: 0.2em;
   cursor: pointer;
   outline: none;
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     background-color: ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.primary};
     border: 1px solid transparent;
@@ -36,10 +36,11 @@ export const BodyButton = styled.button<ButtonProps>`
 
 export const BodyButtonText = styled(BodyButton)<ButtonProps>`
   background-color: transparent;
+  padding: 0.4rem 0.8rem;
   width: ${({ size }) => size ?? "auto"};
   color: ${({ theme }) => theme.primary};
   border: 1px solid transparent;
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     background-color: ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.primary};
     border: 1px solid transparent;
@@ -49,7 +50,7 @@ export const BodyButtonText = styled(BodyButton)<ButtonProps>`
 export const BodyButtonOutlined = styled(BodyButtonText)<ButtonProps>`
   border: 1px solid ${({ theme }) => theme.primary};
   width: ${({ size }) => size ?? "auto"};
-  &:is(&:hover, &:focus) {
+  &:is(&:hover) {
     background-color: ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.primary};
     border: 1px solid ${({ theme }) => theme.primary};

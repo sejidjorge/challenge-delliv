@@ -16,17 +16,56 @@ export default class UpdateOrderService {
     const token = request.headers['authorization'];
     const tokenDecoded = await this.jwtService.verify(token);
 
-    if (body.id !== tokenDecoded.id && tokenDecoded.role !== 'ADMIN') {
-      throw new HttpException(
-        {
-          message: 'You cannot edit orders for other users',
-          status: HttpStatus.BAD_REQUEST,
-        },
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     try {
+      const viewOrder = await prisma.orders.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      if (!viewOrder) {
+        throw new HttpException(
+          {
+            message: 'Order not found',
+            status: HttpStatus.BAD_REQUEST,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if (
+        viewOrder.user.id !== tokenDecoded.id &&
+        tokenDecoded.role !== 'ADMIN'
+      ) {
+        throw new HttpException(
+          {
+            message: 'You cannot edit orders for other users',
+            status: HttpStatus.BAD_REQUEST,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if (
+        viewOrder.status === 'RETURNED' ||
+        (viewOrder.status === 'CANCELED' && tokenDecoded.role !== 'ADMIN')
+      ) {
+        throw new HttpException(
+          {
+            message: 'You cannot edit canceled or returned orders',
+            status: HttpStatus.BAD_REQUEST,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       const order = await prisma.orders.update({
         where: {
           id,

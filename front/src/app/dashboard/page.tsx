@@ -6,38 +6,25 @@ import {
   ContainerActionsBar,
   ContainerDashBoard,
   ContainerDashBoardActions,
-  ContainerDashBoardActionsIntern,
-  ContainerDashBoardCardData,
   ContainerDashBoardContent,
   ContainerDashPage,
   ContainerNavbar,
   ContainerUserProfile,
 } from "@/components/atoms/containers";
 import Typography from "@/components/atoms/typography";
-import CardData from "@/components/molecules/cardData";
-import IconButton from '@/components/molecules/IconBtn';
-import RefreshButton from "@/components/molecules/IconBtn";
-import Table from "@/components/molecules/table/table";
-import { usePrivateApi } from "@/hooks/apiPrivateHooks";
+import OrderDash from "@/components/organisms/orderDash";
+import UsersDash from '@/components/organisms/usersDash';
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
 import { logout } from "@/store/reducers/authReducer";
-import { saveListOrders } from "@/store/reducers/ordersReducer";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { user, token } = useAppSelector((state) => state.authUser);
-  const orders = useAppSelector((state) => state.order.listOrders);
   const dispath = useAppDispatch();
   const router = useRouter();
-  const { getAllOrders, getOrderUserById } = usePrivateApi();
-
-  const ordersNumberByStatus = orders.reduce((acc, item) => {
-    acc[item.status] = acc[item.status] || [];
-    acc[item.status].push(item);
-    return acc;
-  }, {});
+  const [step, setStep] = useState(0);
 
   if (token) {
     const decoded = jwtDecode(token);
@@ -50,49 +37,6 @@ export default function Dashboard() {
   } else {
     router.push("/login");
   }
-
-  async function getGeneralOrders() {
-    try {
-      const { data } = await getAllOrders();
-      const reOrder = data.map((item) => ({
-        id: item.id,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-        status: item.status,
-        name: item.user.name,
-        address: item.user.address,
-      }));
-      dispath(saveListOrders(reOrder));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function getUserOrders() {
-    try {
-      const { data } = await getOrderUserById(user.id);
-      const reOrder = data.map((item) => ({
-        id: item.id,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
-        status: item.status,
-        name: item.user.name,
-        address: item.user.address,
-      }));
-
-      dispath(saveListOrders(reOrder));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    if (user.role === "USER") {
-      getUserOrders();
-    } else {
-      getGeneralOrders();
-    }
-  }, [user]);
 
   return (
     <ContainerDashPage>
@@ -117,29 +61,18 @@ export default function Dashboard() {
       </ContainerNavbar>
       <ContainerDashBoard>
         <ContainerDashBoardContent>
-          <ContainerDashBoardActions>
-            <Button label="Pedidos" variant="text" click={() => {}} />
-            <Button label="Usuarios" variant="text" click={() => {}} />
-          </ContainerDashBoardActions>
-          <ContainerDashBoardActionsIntern>
-            <IconButton
-              icon='refresh'
-              variant="contained"
-              click={() => {
-                if (user.role === "USER") {
-                  getUserOrders();
-                } else {
-                  getGeneralOrders();
-                }
-              }}
-            />
-          </ContainerDashBoardActionsIntern>
-          <ContainerDashBoardCardData>
-            {Object.entries(ordersNumberByStatus).map(([status, items]) => (
-              <CardData key={status} title={status} count={items.length} />
-            ))}
-            <Table columns={['AÇÕES', 'ID DO PEDIDO', 'CRIADO EM', 'ATUALIZADO EM','STATUS', 'USUARIO', 'ENDEREÇO DE ENTREGA']} data={orders} />
-          </ContainerDashBoardCardData>
+          {user?.role === "ADMIN" && (
+            <ContainerDashBoardActions>
+              <Button label="Pedidos" variant="text" click={() => setStep(0)} />
+              <Button
+                label="Usuarios"
+                variant="text"
+                click={() => setStep(1)}
+              />
+            </ContainerDashBoardActions>
+          )}
+          {step === 0 && <OrderDash />}
+          {step === 1 && <UsersDash />}
         </ContainerDashBoardContent>
       </ContainerDashBoard>
     </ContainerDashPage>
