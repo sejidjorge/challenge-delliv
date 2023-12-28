@@ -8,6 +8,7 @@ interface ButtonProps {
 }
 
 const icons: {
+  [key: string]: JSX.Element;
   refresh: JSX.Element;
   edit: JSX.Element;
   delete: JSX.Element;

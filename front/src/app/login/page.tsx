@@ -3,7 +3,7 @@ import Button from "@/components/atoms/button";
 import { AuthCard } from "@/components/atoms/cards";
 import {
   ContainerAuthPage,
-  ContainerForm
+  ContainerForm,
 } from "@/components/atoms/containers";
 import Input from "@/components/atoms/inputs";
 import Notification from "@/components/atoms/notifications";
@@ -19,7 +19,7 @@ import sha256 from "sha256";
 
 export default function Login() {
   const { loginConection, registerConection } = usePublicApi();
-  const authData = useAppSelector((state) => state.authUser);
+  const token = useAppSelector((state) => state.authUser.token);
   const dispath = useAppDispatch();
   const router = useRouter();
   const [newRegister, setNewRegister] = useState(false);
@@ -94,8 +94,15 @@ export default function Login() {
     }
   }
 
-  if (authData.token) {
-    const decoded = jwtDecode(authData.token);
+  if (token !== "") {
+    const decoded: {
+      id: string;
+      name: string;
+      role: string;
+      exp: number;
+      iat: number;
+    } = jwtDecode(token);
+
     if (decoded?.exp > Math.floor(Date.now() / 1000)) {
       router.push("/dashboard");
     } else {
