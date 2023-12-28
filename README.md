@@ -26,8 +26,6 @@ npx prisma migrate dev --name init
 
 ## Routes Documentation
 
----
-
 **Users:**
 
 - **`/users/register`** (POST): Registers a new user.
