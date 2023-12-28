@@ -12,8 +12,9 @@ import {
   ContainerUserProfile,
 } from "@/components/atoms/containers";
 import Typography from "@/components/atoms/typography";
+import EditUserPassSidebar from "@/components/molecules/EditUserPassSidebar";
 import OrderDash from "@/components/organisms/orderDash";
-import UsersDash from '@/components/organisms/usersDash';
+import UsersDash from "@/components/organisms/usersDash";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
 import { logout } from "@/store/reducers/authReducer";
 import { jwtDecode } from "jwt-decode";
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const dispath = useAppDispatch();
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const [editPass, setEditPass] = useState(false);
 
   if (token) {
     const decoded = jwtDecode(token);
@@ -47,7 +49,11 @@ export default function Dashboard() {
             <UserCardAvatar>
               <Typography.Body>{user?.name.slice(0, 1)}</Typography.Body>
             </UserCardAvatar>
-            <Typography.Label>{user?.name}</Typography.Label>
+            <Button
+              label={user?.name}
+              variant="contained"
+              click={() => setEditPass(true)}
+            />
           </ContainerUserProfile>
           <Button
             label="Logout"
@@ -75,6 +81,13 @@ export default function Dashboard() {
           {step === 1 && <UsersDash />}
         </ContainerDashBoardContent>
       </ContainerDashBoard>
+      {editPass && (
+        <EditUserPassSidebar
+          open={editPass}
+          setOpen={setEditPass}
+          user={user}
+        />
+      )}
     </ContainerDashPage>
   );
 }

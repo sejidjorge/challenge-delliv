@@ -10,23 +10,24 @@ import Notification from "@/components/atoms/notifications";
 import { AxiosError } from "axios";
 import Typography from "@/components/atoms/typography";
 
-export interface Order {
+interface User {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  status: string;
+  email: string;
   name: string;
   address: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface PropsModal {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  order: Order | undefined;
+  user: User | undefined;
 }
 
-export default function ModalDeleteOrder({ open, setOpen, order }: PropsModal) {
-  const { deleteOrder } = usePrivateApi();
+export default function ModalDeleteUser({ open, setOpen, user }: PropsModal) {
+  const { deleteUserProfile } = usePrivateApi();
 
   function onClose() {
     setOpen((open) => !open);
@@ -34,7 +35,7 @@ export default function ModalDeleteOrder({ open, setOpen, order }: PropsModal) {
 
   async function handleChangeDelete() {
     try {
-      await deleteOrder(order?.id);
+      await deleteUserProfile(user?.id);
       Notification({
         type: "success",
         message: "Order deleted successfully",
@@ -48,7 +49,7 @@ export default function ModalDeleteOrder({ open, setOpen, order }: PropsModal) {
   return (
     <BaseModal open={open} setOpen={onClose}>
       <ContainerContent>
-        <Typography.Body>Deseja realmente excluir este pedido?</Typography.Body>
+        <Typography.Body>Deseja realmente excluir este perfil?</Typography.Body>
         <ContainerActions>
           <Button
             label={"confirmar"}

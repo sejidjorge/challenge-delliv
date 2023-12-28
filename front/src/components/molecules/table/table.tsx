@@ -5,6 +5,7 @@ import { getLabelStatus } from "@/utils/labels";
 import { useEffect, useState } from "react";
 import IconButton from "../IconBtn";
 import ModalDeleteOrder from "../modalDeleteOrder";
+import ModalDeleteUser from "../modalDeleteUser";
 import ModalEditOrder from "../modalEditOrder";
 import {
   ContainerTablePagination,
@@ -13,6 +14,7 @@ import {
   TableStyled,
   TableTd,
 } from "./table.styles";
+import EditUserSidebar from "../EditUseridebar";
 
 interface User {
   id: string;
@@ -44,16 +46,30 @@ export default function Table({ data, columns, refresh }: TableDataProps) {
   const [changeStatusOrder, setChangeStatusOrder] = useState(false);
   const [modalDeleteOrder, setModalDeleteOrder] = useState(false);
   const [order, setOrder] = useState<Order>();
+  const [profile, setProfile] = useState<User>();
+  const [editUser, setEditUser] = useState(false);
   const [orderDelete, setOrderDelete] = useState<Order>();
+  const [userDelete, setUserDelete] = useState<User>();
+  const [modalDeleteUser, setModalDeleteUser] = useState(false);
 
   function handleEditStatus(data: Order) {
     setOrder(data);
     setChangeStatusOrder(true);
   }
 
-  function handleDelete(data: Order) {
+  function handleEditProfile(data: User) {
+    setProfile(data);
+    setEditUser(true);
+  }
+
+  function handleDeleteOrder(data: Order) {
     setOrderDelete(data);
     setModalDeleteOrder(true);
+  }
+
+  function handleDeleteUser(data: User) {
+    setUserDelete(data);
+    setModalDeleteUser(true);
   }
 
   useEffect(() => {
@@ -65,7 +81,15 @@ export default function Table({ data, columns, refresh }: TableDataProps) {
       setOrderDelete(undefined);
       refresh();
     }
-  }, [changeStatusOrder, modalDeleteOrder]);
+    if (!editUser && profile) {
+      setProfile(undefined);
+      refresh();
+    }
+    if (!modalDeleteUser && userDelete) {
+      setUserDelete(undefined);
+      refresh();
+    }
+  }, [changeStatusOrder, modalDeleteOrder, modalDeleteUser, editUser]);
 
   return (
     <CardTable>
@@ -89,6 +113,8 @@ export default function Table({ data, columns, refresh }: TableDataProps) {
                   click={() => {
                     if (rowData?.status) {
                       handleEditStatus(rowData as Order);
+                    } else {
+                      handleEditProfile(rowData as User);
                     }
                   }}
                 />
@@ -97,7 +123,9 @@ export default function Table({ data, columns, refresh }: TableDataProps) {
                   icon="delete"
                   click={() => {
                     if (rowData?.status) {
-                      handleDelete(rowData as Order);
+                      handleDeleteOrder(rowData as Order);
+                    } else {
+                      handleDeleteUser(rowData as User);
                     }
                   }}
                 />
@@ -133,6 +161,16 @@ export default function Table({ data, columns, refresh }: TableDataProps) {
           setOpen={setModalDeleteOrder}
           order={orderDelete}
         />
+      )}
+      {userDelete && (
+        <ModalDeleteUser
+          open={modalDeleteUser}
+          setOpen={setModalDeleteUser}
+          user={userDelete}
+        />
+      )}
+      {profile && (
+        <EditUserSidebar open={editUser} setOpen={setEditUser} user={profile} />
       )}
     </CardTable>
   );

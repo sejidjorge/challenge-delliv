@@ -29,6 +29,19 @@ export default class DeleteUserService {
         },
       });
     } catch (error) {
+      if (
+        error.message ===
+        '\nInvalid `prisma.users.delete()` invocation in\nC:\\Users\\sejid\\Desenvolvimento\\Pessoal\\challenge-delliv\\api\\src\\services\\users\\deleteUser.service.ts:26:32\n\n  23 }\n  24 \n  25 try {\n→ 26   await prisma.users.delete(\nForeign key constraint failed on the field: `Orders_userId_fkey (index)`'
+      ) {
+        throw new HttpException(
+          {
+            message: 'Profiles with orders cannot be deleted',
+            status: HttpStatus.BAD_REQUEST,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       throw new HttpException(
         {
           message: error.message,

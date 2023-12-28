@@ -79,6 +79,9 @@ export const ContainerUserProfile = styled.div`
   padding-right: 2em;
   border-right: 2px solid ${({ theme }) => theme.border};
   color: ${({ theme }) => theme.primaryText};
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+
 `;
 
 export const ContainerActionsBar = styled.div`

@@ -8,7 +8,7 @@ import {
   ContainerDashBoardCardData,
 } from "../atoms/containers";
 import Notification from "../atoms/notifications";
-import NewUserSidebar from "../molecules/newUserSidebar";
+import NewUserSidebar from "../molecules/NewUserSidebar";
 import Table from "../molecules/table/table";
 
 export default function UsersDash() {
