@@ -32,13 +32,13 @@ export function setupInterceptorsTo(
 }
 
 export const AxiosPublicService: AxiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3001",
 });
 
 export function AxiosPrivateService(accessToken: string | null): AxiosInstance {
   const AxiosPrivateInstance: AxiosInstance = setupInterceptorsTo(
     axios.create({
-      baseURL: "http://localhost:3000",
+      baseURL: "http://localhost:3001",
       headers: {
         Authorization: accessToken,
       },
