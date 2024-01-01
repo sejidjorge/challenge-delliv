@@ -26,6 +26,8 @@ npx prisma migrate dev --name init
 
 ## Routes Documentation
 
+---
+
 **Users:**
 
 - **`/users/register`** (POST): Registers a new user.
@@ -81,3 +83,33 @@ npx prisma migrate dev --name init
 - **`/orders/{id}`** (DELETE): Deletes a specific order.
     - **Path parameter:** `id` (string)
     - **Requires authentication:** Yes
+    
+    ## DataBase Documentation
+    
+    ---
+    
+    ```mermaid
+    erDiagram
+    users ||--o{ orders : allows
+    users {
+    	string id "uuid"
+    	string email "unique"
+    	string name
+    	enum role "ADMIN, USER"
+    	string address
+    	string passwordHash
+    	dateTime createdAt
+    	dateTime updatedAt
+    	Orders[] order
+    }
+    
+    orders {
+    	string id "uuid"
+    	dateTime createdAt
+    	dateTime updatedAt
+    	Users user "order owner user"
+    	string UserId "id order owner user"
+    	enum status "PENDING, DELIVERED, ONROUTE, RETURNED, CANCELED"
+    }
+    
+    ```
