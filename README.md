@@ -90,7 +90,7 @@ npx prisma migrate dev --name init
     
     ```mermaid
     erDiagram
-    users ||--o{ orders : allows
+    users ||--o{ orders : contains
     users {
     	string id "uuid"
     	string email "unique"
